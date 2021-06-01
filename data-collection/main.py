@@ -144,7 +144,7 @@ class Connection:
 async def user_console_manager(connection: Connection):
     while True:
         if connection.client and connection.connected:
-            input_str = await ainput("Enter string: ")
+            input_str = await ainput("Enter command: ")
             global currentAction
             currentAction = input_str.lower()
             bytes_to_send = bytearray(map(ord, input_str))

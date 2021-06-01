@@ -3,7 +3,7 @@
 #include <ArduinoBLE.h>
 #include <Arduino_LSM9DS1.h>
 
-#define POSSIBLE_LABELS_LENGTH 5
+#define POSSIBLE_LABELS_LENGTH 6
 #define LEDR (22u)
 #define LEDG (23u)
 #define LEDB (24u)
@@ -40,7 +40,7 @@ float xGyro = 0,
 
 bool canSendData = false;
 
-String possibleLabels[POSSIBLE_LABELS_LENGTH] = {"WALKING", "STAIRS_DOWN", "STAIRS_UP", "SITTING", "LYING_DOWN"}; // Remember to update POSSIBLE_LABELS_LENGTH
+String possibleLabels[POSSIBLE_LABELS_LENGTH] = {"WALKING", "STAIRS_DOWN", "STAIRS_UP", "SITTING", "LYING_DOWN", "FALLING"}; // Remember to update POSSIBLE_LABELS_LENGTH
 String label = "UNDEFINED";
 int labelNum = -1;
 

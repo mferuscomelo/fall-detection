@@ -177,11 +177,7 @@ void onGetData(BLEDevice central, BLECharacteristic characteristic) {
   }
 
   // Parse command
-  if (command == "start") {
-    Serial.println("Starting to record");
-
-    canSendData = true;
-  } else if (command == "stop") {
+  if (command == "stop") {
     Serial.println("Stopping to record");
 
     reset();
@@ -189,6 +185,7 @@ void onGetData(BLEDevice central, BLECharacteristic characteristic) {
     Serial.print("Starting to record ");
     Serial.println(command);
 
+    canSendData = true;
     label = String(command);
     labelNum = indexOfLabel();
   } else {

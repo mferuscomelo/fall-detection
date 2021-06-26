@@ -1,19 +1,30 @@
-import pandas as pd
 import os
 
 dataset_dir = "./../dataset/"
 
+def clean_file(path: str):
+    blacklisted_chars = [";", " "]
+
+    with open(path, "r+") as file:
+        contents = file.read()
+
+        for char in blacklisted_chars:
+            contents = contents.replace(char, "")
+
+        file.seek(0)
+        file.write(contents)
+        file.truncate()
+
 for subdir, dirs, files in os.walk(dataset_dir):
     for file in files:
-        if ("Readme" in file) or ("txt" not in file) or ("rar" in file):
-            break
+        if ("Readme" in file) or ("txt" not in file):
+            continue
 
         txt_file_path = os.path.join(subdir, file)
         csv_file_path = txt_file_path.replace("txt", "csv")
 
         print(txt_file_path, "=>", csv_file_path)
 
-        txt_file = pd.read_csv(str(txt_file_path))
-        txt_file.to_csv(str(csv_file_path), index=None)
+        clean_file(txt_file_path)
 
-        os.remove(txt_file_path)
+        os.rename(txt_file_path, csv_file_path)

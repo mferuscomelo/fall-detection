@@ -3,6 +3,11 @@ import os
 dataset_dir = "./../dataset/"
 
 def clean_file(path: str):
+    """Remove semi-colons and spaces from files
+
+    Args:
+        path (str): Path of the file to clean
+    """    
     blacklisted_chars = [";", " "]
 
     with open(path, "r+") as file:

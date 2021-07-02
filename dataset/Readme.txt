@@ -2,7 +2,7 @@
 ---- SisFall: A Fall and Movement Dataset ----
 
 Created by:
-A. Sucerquia, J.D. López, J.F. Vargas-Bonilla
+A. Sucerquia, J.D. LÃ³pez, J.F. Vargas-Bonilla
 SISTEMIC, Faculty of Engineering, Universidad de Antiquia UDEA
 josedavid@udea.edu.co
 
@@ -35,7 +35,7 @@ Activities of Daily Living (ADL):
 | D11  | Sitting a moment, trying to get up, and collapse into a chair                            | 5      | 12s      |
 | D12  | Sitting a moment, lying slowly, wait a moment, and sit again                             | 5      | 12s      |
 | D13  | Sitting a moment, lying quickly, wait a moment, and sit again                            | 5      | 12s      |
-| D14  | Being on one’s back change to lateral position, wait a moment, and change to one’s back  | 5      | 12s      |
+| D14  | Being on one's back change to lateral position, wait a moment, and change to ones back   | 5      | 12s      |
 | D15  | Standing, slowly bending at knees, and getting up                                        | 5      | 12s      |
 | D16  | Standing, slowly bending without bending knees, and getting up                           | 5      | 12s      |
 | D17  | Standing, get into a car, remain seated and get out of the car                           | 5      | 25s      |
@@ -160,7 +160,7 @@ Range: +-16g
 
 ITG3200
 Resolution: 16 bits
-Range: +-2000°/s
+Range: +-2000 deg/s
 
 MMA8451Q:
 Resolution: 14 bits
@@ -173,5 +173,5 @@ Acceleration [g]: [(2*Range)/(2^Resolution)]*AD
 
 In order to convert the rotation data (RD) given in bits into angular velocity, use this equation:
 
-Angular velocity [°/s]: [(2*Range)/(2^Resolution)]*RD
+Angular velocity [deg/s]: [(2*Range)/(2^Resolution)]*RD
 

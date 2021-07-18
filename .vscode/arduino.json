@@ -2,6 +2,6 @@
   "port": "COM4",
   "board": "arduino:mbed_nano:nano33ble",
   "programmer": "arduino:cmsis-dap",
-  "sketch": "data-collection/CollectData.ino",
+  "sketch": "scripts/CollectData/CollectData.ino",
   "output": "build"
 }

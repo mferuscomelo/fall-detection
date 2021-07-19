@@ -1,5 +1,5 @@
 # Fall Detection
-Create your own fall detection sensor using an Arduino!
+Create your own fall detection sensor using an Arduino! (README needs to be updated)
 
 ## How it works
 This code runs on an [Arduino Nano 33 BLE Sense](https://store.arduino.cc/arduino-nano-33-ble-sense) and uses the inbuilt 9 axis inertial sensor to detect falls using a custom trained machine learning model.
@@ -18,4 +18,5 @@ Follow these steps to collect your own data to train your model.
 
     The Arduino will then start recording the action whose data will then be stored in the person's directory in `data-collection/data`. The data, stored in the form of a CSV, will contain the following information: `x_acc`, `y_acc`, `z_acc`, `x_gyro`, `y_gyro`, `z_gyro`, `label_name`, `label_num` 
     
-7. 
+## Detecting Falls
+Upload the contents of `scripts/FallDetection` to the Arduino. The script currently needs to be plugged into the computer to work. README and script will be updated to support fall detection remotely.

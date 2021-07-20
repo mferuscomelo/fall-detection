@@ -51,10 +51,10 @@ BLEService IMUService(uuidOfService);
 
 // Setup the incoming data characteristic.
 const int WRITE_BUFFER_SIZE = 256;
-bool WRITE_BUFFER_FIZED_LENGTH = false;
+bool WRITE_BUFFER_FIXED_LENGTH = false;
 
 // Read / Write Characteristics
-BLECharacteristic readChar(uuidOfReadChar, BLEWriteWithoutResponse | BLEWrite, WRITE_BUFFER_SIZE, WRITE_BUFFER_FIZED_LENGTH);
+BLECharacteristic readChar(uuidOfReadChar, BLEWriteWithoutResponse | BLEWrite, WRITE_BUFFER_SIZE, WRITE_BUFFER_FIXED_LENGTH);
 BLECharacteristic writeChar(uuidOfWriteChar, BLERead | BLENotify | BLEBroadcast, "123456789123456789123456789123456789123456789123456789123456789123456789");
 
 /*

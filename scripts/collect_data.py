@@ -18,21 +18,14 @@ currentAction = ""
 
 class DataToFile:
 
-    column_names = ["acc1_x", "acc1_y", "acc1_z", "gyro_x", "gyro_y", "gyro_z", "label_name", "label_num"]
-
     def __init__(self, write_path):
         self.folder_path = write_path
 
     def write_to_csv(self, data_values: List[str]):
         file_path = f"{self.folder_path}/{currentAction}.csv"
-        with open(file_path, "a+") as f:
-            # if os.stat(file_path).st_size == 0:
-            #     # Init CSV headers
-            #     f.write(",".join([str(name) for name in self.column_names]) + "\n")
-            
+        with open(file_path, "a+") as f:            
             for i in range(len(data_values)):
                 f.write(f"{data_values[i]}\n")
-
 
 class Connection:
 
@@ -142,6 +135,10 @@ async def user_console_manager(connection: Connection):
             input_str = await ainput("Enter command: ")
             global currentAction
             currentAction = input_str.lower()
+
+            if currentAction == "STOP":
+                connection.clear_lists()
+                
             bytes_to_send = bytearray(map(ord, input_str))
             await connection.client.write_gatt_char(write_characteristic, bytes_to_send)
         else:

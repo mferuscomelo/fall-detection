@@ -3,10 +3,11 @@
 #include <ArduinoBLE.h>
 #include <Arduino_LSM9DS1.h>
 
-#define POSSIBLE_LABELS_LENGTH 6
+#define POSSIBLE_LABELS_LENGTH 4
 #define LEDR (22u)
 #define LEDG (23u)
 #define LEDB (24u)
+
 // #define DEBUG true // Comment this out to compile code for production
 
 // Replacement class for Serial
@@ -33,16 +34,10 @@ float xAcc = 0,
       yAcc = 0,
       zAcc = 0;
 
-// x, y, z gyroscope in deg/s
-float xGyro = 0,
-      yGyro = 0,
-      zGyro = 0;
-
 bool canSendData = false;
 
-String possibleLabels[POSSIBLE_LABELS_LENGTH] = {"WALKING", "STAIRS_DOWN", "STAIRS_UP", "SITTING", "LYING_DOWN", "FALLING"}; // Remember to update POSSIBLE_LABELS_LENGTH
+String possibleLabels[POSSIBLE_LABELS_LENGTH] = {"WALKING", "SITTING", "LYING_DOWN", "FALLING"}; // Remember to update POSSIBLE_LABELS_LENGTH
 String label = "UNDEFINED";
-int labelNum = -1;
 
 
 // Device info
@@ -172,12 +167,12 @@ void onGetData(BLEDevice central, BLECharacteristic characteristic) {
     command += (char)test[i];
   }
 
-  if(command == "start" || command == "stop" || isValidLabel(command)) {
+  if(command == "STOP" || isValidLabel(command)) {
     blinkLight("blue");
   }
 
   // Parse command
-  if (command == "stop") {
+  if (command == "STOP") {
     Serial.println("Stopping to record");
 
     reset();
@@ -187,7 +182,6 @@ void onGetData(BLEDevice central, BLECharacteristic characteristic) {
 
     canSendData = true;
     label = String(command);
-    labelNum = indexOfLabel();
   } else {
     Serial.print("Invalid command: ");
     Serial.println(command);
@@ -197,12 +191,8 @@ void onGetData(BLEDevice central, BLECharacteristic characteristic) {
 }
 
 void sendIMUData() {
-  // Send data in format: xAcc,yAcc,zAcc,xGyro,yGyro,zGyro,label,labelNum
-  String accString = String(xAcc) + "," + String(yAcc) + "," + String(zAcc);
-  String gyroString = String(xGyro) + "," + String(yGyro) + "," + String(zGyro);
-  String labelInfo = String(label) + "," + String(labelNum);
-
-  String dataString = accString + "," + gyroString + "," + labelInfo;
+  // Send data in format: xAcc,yAcc,zAcc,label
+  String dataString = String(xAcc) + "," + String(yAcc) + "," + String(zAcc) + "," + String(label);
 
   char data[dataString.length() + 1];
   dataString.toCharArray(data, dataString.length() + 1);
@@ -239,10 +229,6 @@ void getIMUData() {
   if (IMU.accelerationAvailable()) {
     IMU.readAcceleration(xAcc, yAcc, zAcc);
   }
-
-  if (IMU.gyroscopeAvailable()) {
-    IMU.readGyroscope(xGyro, yGyro, zGyro);
-  }
 }
 
 
@@ -273,12 +259,12 @@ void showBlueLight() {
   digitalWrite(LEDB, LOW);
 }
 
-void blinkLight(String light) {
-  if (light == "green") {
+void blinkLight(String color) {
+  if (color == "green") {
     showGreenLight();
-  } else if (light == "yellow") {
+  } else if (color == "yellow") {
     showYellowLight();
-  } else if (light == "blue") {
+  } else if (color == "blue") {
     showBlueLight();
   } else {
     showErrorLight();
@@ -325,17 +311,7 @@ bool isValidLabel(String testLabel) {
   return false;
 }
 
-int indexOfLabel() {
-  for (int i = 0; i < POSSIBLE_LABELS_LENGTH; i++) {
-    if (possibleLabels[i] == label) {
-      return i;
-    }
-  }
-  return -1;
-}
-
 void reset() {
   canSendData = false;
   label = "UNDEFINED";
-  labelNum = -1;
 }
